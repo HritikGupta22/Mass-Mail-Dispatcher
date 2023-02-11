@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mass-Mail Dispatcher</title>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="nav">
+      <p id="heading">EXPOSYS DATA LABS</p>
+      <ul>
+        <li><a href="/index.html">HOME</a></li>
+        <li><a href="/sendMssg.html">SEND MESSAGE</a></li>
+        <li><a href="/VINVmails.html">EMAILS</a></li>
+        <li><a href="/aboutus.html">ABOUT US</a></li>
+      </ul>
+    </div>
+  </header>
+  <hr style="border: 1px solid black; margin: 0px; padding: 0px" />
+  <main>
+    <div class="div1">
+      <br>
+      <br>
+      <h1>MASS-MAIL DISPATCHER</h1>
+      <br>
+      <br>
+
+      <center>
+        <form action="/VINVmails.html">
+          <div class="container1">
+            <label for="Sfile" style="margin-left: 140px;">SELECT THE CSV FILE: </label>
+            <input type="file" style="font-size: x-large;" id="uploadfile" accept=".csv" <a class="upload"
+              id="call-to-action"><span></span></a>
+            <br>
+            <br>
+            <button id="resetbtn" type="button" onClick="this.form.reset()" style="font-size: x-large;">
+              Reset file
+            </button>
+            <button style="font-size: x-large;" id="btn">
+              <div class="batn" style="font-size: x-large;"><a href="/VINVmails.html" class="btn btn-success"
+                  role="button" id="myButton">Submit</a></div>
+
+            </button>
+          </div>
+        </form>
+      </center>
+    </div>
+  </main>
+
+  <footer>
+    <span>@Creator :</span>
+    <a href="https://www.linkedin.com/in/hritik-gupta-5352a01b8/" target="_blank"><img src="/images/lnkdin.png"
+        id="img2" alt="Linkdin">Hritik</a>
+  </footer>
+
+  <script>
+
+    const fileInput = document.querySelector('input');
+
+    fileInput.addEventListener('change', () => {
+      const fr = new FileReader();
+      fr.readAsText(fileInput.files[0]);
+      fr.onload = function () {
+        const csv = fr.result;
+        const array = csv.split('\r\n').map((line) => {
+          return line.split(',');
+        });
+        array.shift();
+        sessionStorage.setItem("array", array);
+      };
+    });
+
+  </script>
+</body>
+
+</html>

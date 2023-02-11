@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mass-Mail Dispatcher</title>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="nav">
+      <p id="heading">EXPOSYS DATA LABS</p>
+      <ul>
+        <li><a href="/index.html">HOME</a></li>
+        <li><a href="/sendMssg.html">SEND MESSAGE</a></li>
+        <li><a href="/VINVmails.html">EMAILS</a></li>
+        <li><a href="/aboutus.html">ABOUT US</a></li>
+      </ul>
+    </div>
+  </header>
+  <hr style="border: 1px solid black; margin: 0px; padding: 0px" />
+
+
+  <main style="height: 440px;">
+    <form action="" class="container2">
+      <div style="text-align:center ;margin: top 0;">
+        <h3>SEND MESSAGE</h3>
+
+        <label for="name">Your Name: </label><input type="text" name="name" id="name"
+          style="height: 22px;font-size:large;">
+        <br>
+        <br>
+        <label for="sender">Enter your Email: </label><input type="email" name="senderEmail" id="senderEmail"
+          style="height:22px;font-size:large">
+        <br>
+        <br>
+        <label for="mssg">Message Subject: </label><input type="text" name="subj" id="subj"
+          style="width: 300px;height: 22px;font-size:large;">
+        <br>
+        <br>
+        <textarea name="mssg" id="mssg" cols="90" rows="8" placeholder="Enter your Messages Here!!!"></textarea>
+        <br>
+        <input type="button" value="Send" style="font-size: x-large;" onclick="Sendingcall()">
+      </div>
+    </form>
+
+  </main>
+
+
+  <footer>
+    <span>@Creator :</span>
+    <a href="https://www.linkedin.com/in/hritik-gupta-5352a01b8/" target="_blank"><img src="/images/lnkdin.png"
+        id="img2" alt="Linkdin">Hritik</a>
+  </footer>
+
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+  <script>
+
+    function Sendingcall() {
+      var array = sessionStorage.getItem("valmails");
+      console.log(typeof array);
+      var array = array.split(",");
+      for (let index = 0; index < array.length; index++) {
+
+        Email.send({
+          Host: "smtp.elasticemail.com",
+          Username: "hritikguptak@gmail.com",
+          Password: "D1F45596DC543A15A65DC34955D7024779E4",
+
+          To: array[index],
+          From: document.getElementById('senderEmail').value,
+          Subject: document.getElementById('subj').value + " New message from " + document.getElementById('name').value,
+          Body: document.getElementById('mssg').value,
+
+        }).then(
+          message => {
+            if (message == 'OK') {
+              alert('Your mail has been send.Thank you!!');
+              location.reload();
+            }
+            else {
+              console.error(message);
+              alert('There is error at sending message. ');
+            }
+
+          }
+        );
+      }
+    }
+  </script>
+
+</body>
+
+</html>
